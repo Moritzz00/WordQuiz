@@ -52,7 +52,6 @@ export default function Game() {
         handleBackspace={handleBackspace}
         handleSubmit={handleSubmit}
       />
-      <Modal opened={opened} onClose={close}>Test</Modal>
     </div>
   )
 }
