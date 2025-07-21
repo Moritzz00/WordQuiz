@@ -1,0 +1,82 @@
+body {
+  font-family: monospace, sans-serif;
+}
+
+.keyboard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  margin-top: 8px;
+}
+
+.keyboardRow {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.key {
+  height: 58px;
+  width: 43px;
+  margin: 3px 3px 3px 3px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: none;
+  border-radius: 5px;
+
+  font-weight: 780;
+  font-size: 18px;
+}
+
+.key.backspace {
+  width: 50px;
+}
+
+.key.submit {
+  width: 70px;
+
+  font-weight: 730;
+  font-size: 14px;
+}
+
+.wordbox {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.letterbox {
+  min-width: 50px;
+  min-height: 50px;
+  margin: 3px 3px 3px 3px;
+  border: 2px solid  rgb(182, 182, 182);
+
+  font-size: 16px;
+  font-weight: 600;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.letterbox.notGuessed {
+  background: rgba(255,255,255,1);
+}
+
+.letterbox.typed {
+  border: 2px solid rgb(133, 133, 133);
+}
+
+.letterbox.submitted.exact {
+  background: rgba(0,128,0,1);
+}
+.letterbox.submitted.contains {
+  background: rgba(200,200,0,1);
+}
+.letterbox.submitted.containsNot {
+  background: rgba(100,100,100,1);
+}
