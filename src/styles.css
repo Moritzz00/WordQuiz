@@ -22,8 +22,9 @@ body {
   width: 30px;
 
   font-size: 14px;
-
   font-weight: 780;
+  color: black !important;
+  -webkit-text-fill-color: black !important;
 
   border: none;
   border-radius: 5px; 
@@ -43,10 +44,20 @@ body {
 
   font-size: 18px;
   }
+  
+
 }
 
 .key.backspace {
   width: 50px;
+}
+
+@media (min-width: 600px){
+
+  .key.backspace {
+  width: 60px;
+  }
+
 }
 
 .key.submit {
