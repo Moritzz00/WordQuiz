@@ -2,15 +2,8 @@ import { useState } from 'react';
 import Keyboard from './Keyboard';
 import WordGuess from './Wordguess';
 import { maxGuessLength,attempts } from './Constants';
-import { Modal } from "@mantine/core";
-import { useDisclosure } from '@mantine/hooks';
-
-require('react-dom');
-window.React2 = require('react');
-console.log(window.React1 === window.React2);
 
 export default function Game() {
-  const [opened, { open, close }] = useDisclosure(false);
   const [turn, setTurn] = useState(0);
 
   const [guesses, setGuesses] = useState(Array(attempts).fill(""))
@@ -59,7 +52,6 @@ export default function Game() {
         handleBackspace={handleBackspace}
         handleSubmit={handleSubmit}
       />
-      <Modal opened={opened} onClose={close}>Test</Modal>
     </div>
   )
 }
