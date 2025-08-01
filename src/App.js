@@ -1,7 +1,7 @@
-import { useState } from 'react';
+import { Children, useState } from 'react';
 import Keyboard from './Keyboard';
 import WordGuess from './Wordguess';
-import { maxGuessLength, attempts } from './Constants';
+import { maxGuessLength, attempts, SECRETWORD } from './Constants';
 import { useEffect } from 'react';
 
 
@@ -10,6 +10,7 @@ export default function Game() {
   const [turn, setTurn] = useState(0);
   const [guesses, setGuesses] = useState(Array(attempts).fill(""))
   const currentGuess = guesses[turn]
+  const guessedCorrectly = currentGuess === SECRETWORD
 
   useEffect(() => {
     let ignore = false
@@ -61,12 +62,14 @@ export default function Game() {
     if (currentGuess.length < maxGuessLength) { return };
 
     if (turn <= (attempts - 1)) {
+    if (turn <= (attempts - 1)) {
       setTurn(turn + 1)
     };
   }
 
-  return (
-    <>
+  if (!guessedCorrectly) {
+    return (
+      <>
       {
         data ?
           <div>
@@ -90,8 +93,24 @@ export default function Game() {
       }
 
     </>
-  )
+    )
+  } else {
+    return (
+      <>
+        You guessed correct!
+        <button
+          onClick={function () {
+            setTurn(0)
+            setGuesses(Array(attempts).fill(""))
+            return
+          }
+          }
+        >
+          Restart Game
+        </button>
+      </>
+    )
+  }
 }
-
 
 
