@@ -1,8 +1,7 @@
-import { Children, useState } from 'react';
+import { useState, useEffect } from 'react';
 import Keyboard from './Keyboard';
 import WordGuess from './Wordguess';
 import { maxGuessLength, attempts, SECRETWORD } from './Constants';
-import { useEffect } from 'react';
 
 
 export default function Game() {
@@ -20,7 +19,7 @@ export default function Game() {
       const data = await fetch('five_letter_words.json')
       const asJson = await data.json()
       const asSet = new Set(asJson.words)
-      console.log('new set', asSet)
+      console.log("new Set", asSet)
 
       if (!ignore) {
         setData(asSet)
@@ -32,8 +31,6 @@ export default function Game() {
       ignore = true
     }
   }, [])
-
-  console.log("data", data)
 
 
   const handleKeyClick = (letter) => {
@@ -56,45 +53,30 @@ export default function Game() {
       setGuesses(updatedGuesses)
     }
   }
-  
+
 
   const handleSubmit = () => {
     if (currentGuess.length < maxGuessLength) { return };
 
     if (turn <= (attempts - 1)) {
-    if (turn <= (attempts - 1)) {
-      setTurn(turn + 1)
-    };
+      if (turn <= (attempts - 1)) {
+        setTurn(turn + 1)
+      };
+    }
+
+    console.log("guessedCorrectly", guessedCorrectly)
+    console.log("data", data)
+  }
+
+  if (!data) {
+    return (
+      <div className='loadingContainer'>
+        <div className='loadingElement'>Loading...</div>
+      </div>
+    )
   }
 
   if (!guessedCorrectly) {
-    return (
-      <>
-      {
-        data ?
-          <div>
-            <WordGuess modalOpener={open} id={0} turn={turn} guess={guesses[0]} />
-            <WordGuess modalOpener={open} id={1} turn={turn} guess={guesses[1]} />
-            <WordGuess modalOpener={open} id={2} turn={turn} guess={guesses[2]} />
-            <WordGuess modalOpener={open} id={3} turn={turn} guess={guesses[3]} />
-            <WordGuess modalOpener={open} id={4} turn={turn} guess={guesses[4]} />
-            <WordGuess modalOpener={open} id={5} turn={turn} guess={guesses[5]} />
-            <Keyboard
-              handleKeyClick={handleKeyClick}
-              handleBackspace={handleBackspace}
-              handleSubmit={handleSubmit}
-            />
-          </div>
-          :
-          <div className='loadingContainer'>
-            <div className='loadingElement'>Loading...</div>
-          </div>
-
-      }
-
-    </>
-    )
-  } else {
     return (
       <>
         You guessed correct!
@@ -111,6 +93,23 @@ export default function Game() {
       </>
     )
   }
+
+  return (
+
+    <div>
+      <WordGuess modalOpener={open} id={0} turn={turn} guess={guesses[0]} />
+      <WordGuess modalOpener={open} id={1} turn={turn} guess={guesses[1]} />
+      <WordGuess modalOpener={open} id={2} turn={turn} guess={guesses[2]} />
+      <WordGuess modalOpener={open} id={3} turn={turn} guess={guesses[3]} />
+      <WordGuess modalOpener={open} id={4} turn={turn} guess={guesses[4]} />
+      <WordGuess modalOpener={open} id={5} turn={turn} guess={guesses[5]} />
+      <Keyboard
+        handleKeyClick={handleKeyClick}
+        handleBackspace={handleBackspace}
+        handleSubmit={handleSubmit}
+      />
+    </div>
+  )
 }
 
 
