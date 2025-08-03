@@ -1,15 +1,15 @@
-import { useEffectOnDependencyChange } from "./hooks/useEffectOnDependencyChange";
+import { useRunOnChange } from "./hooks/useRunOnChange";
 import { useTimeoutState } from "./hooks/useTimeoutState";
 
-export const TimeoutMessage = (render, timeout, dependencies) => {
-  const [showMessage, setShowMessage] = useTimeoutState(
-    false, 
-    timeout
-  )
 
-  useEffectOnDependencyChange(() => {
+export const TimeoutMessage = ({ render, timeout, message }) => {
+  const [showMessage, setShowMessage] = useTimeoutState(false, timeout)
+
+  useRunOnChange(() => {
     setShowMessage(true)
-  }, dependencies)
+  }, message)
+
+  
 
   return showMessage ? <>{render()}</> : null
 }

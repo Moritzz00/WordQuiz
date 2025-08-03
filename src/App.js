@@ -13,7 +13,7 @@ export default function Game() {
   const [guesses, setGuesses] = useState(Array(attempts).fill(""))
   const currentGuess = guesses[turn]
   const guessedCorrectly = currentGuess === SECRETWORD
-  const messageAvailable = message.length >= 0
+  const messageAvailable = message.length > 0
 
   useEffect(() => {
     let ignore = false
@@ -59,8 +59,11 @@ export default function Game() {
 
   const handleSubmit = () => {
     if (currentGuess.length < maxGuessLength) { return };
-    console.log("handlefunction")
     if (!data.has(currentGuess)) {
+
+      console.log("currentGuess", currentGuess)
+      console.log("data", data)
+      console.log(data.has(currentGuess))
       console.log("not in word list")
       setMessage('Guess not in word list.')
       return
@@ -99,14 +102,16 @@ export default function Game() {
       </div>
     )
   }
-  // <TimeoutMessage dependencies = {[messageAvailable]} timeout = {5000} render = {() => <Message text="test" />} />
+
 
   return (
     <>
-      {
-        messageAvailable &&
-        <Message text={message} />
-      }
+
+      <TimeoutMessage
+        message={message}
+        timeout={5000}
+        render={() => <Message className='message' text={message} />}
+      />
 
       <div>
         <WordGuess modalOpener={open} id={0} turn={turn} guess={guesses[0]} />
