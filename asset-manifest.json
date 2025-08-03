@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/WordQuiz/static/css/main.84558607.css",
-    "main.js": "/WordQuiz/static/js/main.f55ae8f7.js",
+    "main.css": "/WordQuiz/static/css/main.5fa33a2b.css",
+    "main.js": "/WordQuiz/static/js/main.1f0edb81.js",
     "index.html": "/WordQuiz/index.html",
-    "main.84558607.css.map": "/WordQuiz/static/css/main.84558607.css.map",
-    "main.f55ae8f7.js.map": "/WordQuiz/static/js/main.f55ae8f7.js.map"
+    "main.5fa33a2b.css.map": "/WordQuiz/static/css/main.5fa33a2b.css.map",
+    "main.1f0edb81.js.map": "/WordQuiz/static/js/main.1f0edb81.js.map"
   },
   "entrypoints": [
-    "static/css/main.84558607.css",
-    "static/js/main.f55ae8f7.js"
+    "static/css/main.5fa33a2b.css",
+    "static/js/main.1f0edb81.js"
   ]
 }
