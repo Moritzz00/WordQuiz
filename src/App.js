@@ -8,13 +8,17 @@ import WordGuess from './Wordguess';
 export default function Game() {
   const [data, setData] = useState(null)
   const [message, setMessage] = useState('')
+  const [messageClassName, setMessageClassName] = useState('')
   const [turn, setTurn] = useState(0);
   const [guesses, setGuesses] = useState(Array(attempts).fill(""))
-  const currentGuess = guesses[turn]
-  const guessedCorrectly = currentGuess === SECRETWORD
-  const messageAvailable = message.length > 0
-  const messageTime = 5000
+  const [guessedCorrectly, setGuessedCorrectly] = useState(false)
+  const [gameLost, setGameLost] = useState(false)
 
+  const currentGuess = guesses[turn]
+  const messageAvailable = message.length > 0
+  const messageTime = 1500
+
+  // get word list from file
   useEffect(() => {
     let ignore = false
 
@@ -35,15 +39,17 @@ export default function Game() {
     }
   }, [])
 
+  // handle showing timed message
   useEffect(() => {
     let timer;
     if (messageAvailable) {
       timer = setTimeout(() => {
-        setMessage('');
+        setMessage('')
+        setMessageClassName('');
       }, messageTime);
     }
     return () => clearTimeout(timer);
-  }, [messageAvailable]);
+  }, [messageAvailable, setMessage, setMessageClassName]);
 
 
   const handleKeyClick = (letter) => {
@@ -72,13 +78,28 @@ export default function Game() {
     if (!data.has(currentGuess)) {
 
       setMessage('Guess not in word list.')
+      setMessageClassName('wordNotFoundMessage')
       return
     }
-    if (turn <= (attempts - 1)) {
-      if (turn <= (attempts - 1)) {
-        setTurn(turn + 1)
-      };
+
+
+    if (currentGuess === SECRETWORD) {
+      setGuessedCorrectly(true)
+      setMessage('You guessed correct!')
+      setMessageClassName('winGameMessage')
     }
+
+
+    if (!guessedCorrectly && (turn >= 5) && currentGuess !== SECRETWORD) {
+      setGameLost(true)
+      setMessage("Unlucky! Try again tomorrow (or now :) )")
+      setMessageClassName('loseGameMessage')
+    }
+
+    if (turn <= (attempts - 1)) {
+      setTurn(turn + 1)
+    };
+
   }
 
   if (!data) {
@@ -89,47 +110,41 @@ export default function Game() {
     )
   }
 
-  if (guessedCorrectly) {
-    return (
-      <div className='centeringContainer'>
-        <div className='centeredElement'>
-          You guessed correct!
-          <button
-            onClick={function () {
-              setTurn(0)
-              setGuesses(Array(attempts).fill(""))
-              return
-            }
-            }
-          >
-            Restart Game
-          </button>
-        </div>
-      </div>
-    )
-  }
-
-
   return (
     <>
       {
         messageAvailable &&
-        <Message text={'Guess not in word list'} />
+        <Message className={messageClassName} text={message} />
       }
 
-      <div>
-        <WordGuess modalOpener={open} id={0} turn={turn} guess={guesses[0]} />
-        <WordGuess modalOpener={open} id={1} turn={turn} guess={guesses[1]} />
-        <WordGuess modalOpener={open} id={2} turn={turn} guess={guesses[2]} />
-        <WordGuess modalOpener={open} id={3} turn={turn} guess={guesses[3]} />
-        <WordGuess modalOpener={open} id={4} turn={turn} guess={guesses[4]} />
-        <WordGuess modalOpener={open} id={5} turn={turn} guess={guesses[5]} />
+      <div className='gameContainer'>
+        <WordGuess rowID={0} turn={turn} guess={guesses[0]} />
+        <WordGuess rowID={1} turn={turn} guess={guesses[1]} />
+        <WordGuess rowID={2} turn={turn} guess={guesses[2]} />
+        <WordGuess rowID={3} turn={turn} guess={guesses[3]} />
+        <WordGuess rowID={4} turn={turn} guess={guesses[4]} />
+        <WordGuess rowID={5} turn={turn} guess={guesses[5]} />
         <Keyboard
-          handleKeyClick={handleKeyClick}
-          handleBackspace={handleBackspace}
-          handleSubmit={handleSubmit}
+          handleKeyClick={(gameLost || guessedCorrectly) ? () => { } : handleKeyClick}
+          handleBackspace={(gameLost || guessedCorrectly) ? () => { } : handleBackspace}
+          handleSubmit={(gameLost || guessedCorrectly) ? () => { } : handleSubmit}
         />
+
+        {
+          (guessedCorrectly || gameLost) &&
+          <button className='resetButton' onClick={function () {
+            setTurn(0)
+            setGuesses(Array(attempts).fill(""))
+            setGuessedCorrectly(false)
+            setGameLost(false)
+            return
+          }}>
+            Restart Game
+          </button>
+        }
       </div>
+
+
     </>
   )
 }
