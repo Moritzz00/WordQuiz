@@ -71,10 +71,6 @@ export default function Game() {
     if (currentGuess.length < maxGuessLength) { return };
     if (!data.has(currentGuess)) {
 
-      console.log("currentGuess", currentGuess)
-      console.log("data", data)
-      console.log(data.has(currentGuess))
-      console.log("not in word list")
       setMessage('Guess not in word list.')
       return
     }
