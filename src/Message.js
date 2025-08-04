@@ -1,6 +1,6 @@
-export default function Message({ text, className }) {
+export default function Message({ text }) {
   return (
-    <div className={className}>
+    <div className='message'>
       {text}
     </div>
   )

@@ -1,9 +1,8 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import { attempts, maxGuessLength, SECRETWORD } from './Constants';
 import Keyboard from './Keyboard';
-import WordGuess from './Wordguess';
 import Message from './Message';
-import { maxGuessLength, attempts, SECRETWORD } from './Constants';
-import { TimeoutMessage } from './TimeoutMessage';
+import WordGuess from './Wordguess';
 
 
 export default function Game() {
@@ -14,6 +13,7 @@ export default function Game() {
   const currentGuess = guesses[turn]
   const guessedCorrectly = currentGuess === SECRETWORD
   const messageAvailable = message.length > 0
+  const messageTime = 5000
 
   useEffect(() => {
     let ignore = false
@@ -34,6 +34,16 @@ export default function Game() {
       ignore = true
     }
   }, [])
+
+  useEffect(() => {
+    let timer;
+    if (messageAvailable) {
+      timer = setTimeout(() => {
+        setMessage('');
+      }, messageTime);
+    }
+    return () => clearTimeout(timer);
+  }, [messageAvailable]);
 
 
   const handleKeyClick = (letter) => {
@@ -106,12 +116,10 @@ export default function Game() {
 
   return (
     <>
-
-      <TimeoutMessage
-        message={message}
-        timeout={5000}
-        render={() => <Message className='message' text={message} />}
-      />
+      {
+        messageAvailable &&
+        <Message text={'Guess not in word list'} />
+      }
 
       <div>
         <WordGuess modalOpener={open} id={0} turn={turn} guess={guesses[0]} />
