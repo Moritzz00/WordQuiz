@@ -1,7 +1,7 @@
 {
   "name": "react.dev",
   "version": "0.0.0",
-  "homepage": "Suprisequiz.com",
+  "homepage": "https://moritzz00.github.io/WordQuiz",
   "main": "/src/index.js",
   "scripts": {
     "predeploy": "npm run build",
