@@ -8,4 +8,5 @@ export const enums = {
 
 export const maxGuessLength = 5;
 export const attempts = 6;
-export const SECRETWORD = "ALONE";
+export const WORDLIST = "merged.json"
+export const POSSIBLE_SOLUTIONS = "possible_words.json"

@@ -1,6 +1,6 @@
-import { enums, SECRETWORD, maxGuessLength } from "./Constants";
+import { enums, maxGuessLength } from "./Constants";
 
-export default function WordGuess({ guess, turn, rowID }) {
+export default function WordGuess({ guess, turn, rowID, secretWord }) {
   let wordArray = guess.split("")
   for (let i = guess.length; i < maxGuessLength; i++) {
     wordArray.push("")
@@ -9,11 +9,11 @@ export default function WordGuess({ guess, turn, rowID }) {
   let colorState = [enums.notGuessed, enums.notGuessed, enums.notGuessed, enums.notGuessed, enums.notGuessed];
 
   for (let i = 0; i < guess.length; i++) {
-    if (guess.charAt(i) === SECRETWORD.charAt(i)) {
+    if (guess.charAt(i) === secretWord.charAt(i)) {
       colorState[i] = enums.exact
     } else {
-      for (let j = 0; j < SECRETWORD.length; j++) {
-        if (guess.charAt(i) === SECRETWORD.charAt(j)) {
+      for (let j = 0; j < secretWord.length; j++) {
+        if (guess.charAt(i) === secretWord.charAt(j)) {
           colorState[i] = enums.contains
           break;
         }
