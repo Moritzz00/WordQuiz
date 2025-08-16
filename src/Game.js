@@ -15,7 +15,7 @@ export default function Game({ data }) {
   const [guessedCorrectly, setGuessedCorrectly] = useState(false)
   const [gameLost, setGameLost] = useState(false)
   const [aloneGuessed, setAloneGuessed] = useState(false)
-  const today = dayjs().year(2025).month(7).date(21)
+  const today = dayjs()
 
   let secretWord = useGetSecretWord(today, aloneGuessed);
   const currentGuess = guesses[turn]

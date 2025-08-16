@@ -18,7 +18,6 @@ export default function useGetSecretWord(today, aloneGuessed) {
       }
     }
   }, [data, secretWord, aloneGuessed, today])
-  console.log("secretword:", secretWord)
   return secretWord
 }
 
