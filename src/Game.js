@@ -22,13 +22,6 @@ export default function Game({ data }) {
   const messageAvailable = message.length > 0
   const messageTime = 1500
 
-  // Handle birthday
-  useEffect(() => {
-    if (today.year(2025).month(7).date(21).format("YYYY-MM-DD") === today.format("YYYY-MM-DD") && guessedCorrectly) {
-      setAloneGuessed(true)
-    }
-  },[guessedCorrectly, setAloneGuessed])
-
   // handle showing timed message
   useEffect(() => {
     let timer;
@@ -125,7 +118,8 @@ export default function Game({ data }) {
             setTurn(0)
             setGuesses(Array(attempts).fill(""))
             setGuessedCorrectly(false)
-            setGameLost(false)
+            setGameLost(false)      
+            setAloneGuessed(true)
             return
           }}>
             Restart Game
