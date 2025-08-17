@@ -1,0 +1,39 @@
+.birthdayHomeContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  width: 100%;
+}
+
+.notImplemented
+{
+
+}
+
+.game {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+
+  margin-top: 10px;
+  margin-bottom: 10px;
+
+  font-size: 70px;
+
+  &.notImplemented {
+
+    filter: grayscale(100%);
+  }
+}
+
+.gameText {
+
+  text-align: center;
+}
+
+.textSeparator {
+  margin: 10px;
+}

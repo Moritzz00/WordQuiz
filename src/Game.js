@@ -5,6 +5,7 @@ import Message from './Message';
 import WordGuess from './Wordguess';
 import useGetSecretWord from './useGetSecretWord';
 import dayjs from 'dayjs';
+import GameOverMessage from './GameOverMessage';
 
 
 export default function Game({ data }) {
@@ -17,7 +18,18 @@ export default function Game({ data }) {
   const [aloneGuessed, setAloneGuessed] = useState(false)
   const today = dayjs()
 
+
   let secretWord = useGetSecretWord(today, aloneGuessed);
+  const secretWordSet = new Set(secretWord)
+  const guessedLetters = new Set()
+  for (let i = 0; i < turn; i++) {
+    for (let j = 0; j < maxGuessLength; j++) {
+      const guess = guesses[i]
+      if (!secretWordSet.has(guess.charAt(j))) {
+        guessedLetters.add(guess.charAt(j))
+      }
+    }
+  }
   const currentGuess = guesses[turn]
   const messageAvailable = message.length > 0
   const messageTime = 1500
@@ -91,14 +103,16 @@ export default function Game({ data }) {
       </div>
     )
   }
-
   return (
     <>
       {
         messageAvailable &&
         <Message className={messageClassName} text={message} />
       }
-
+      <GameOverMessage aloneGuessed={aloneGuessed} today={today} display={guessedCorrectly || gameLost} won={guessedCorrectly} attempt={turn} />
+      <div className='gameCTA'>
+        Try to guess today's word!
+      </div>
       <div className='gameContainer'>
         <WordGuess rowID={0} turn={turn} secretWord={secretWord} guess={guesses[0]} />
         <WordGuess rowID={1} turn={turn} secretWord={secretWord} guess={guesses[1]} />
@@ -107,6 +121,7 @@ export default function Game({ data }) {
         <WordGuess rowID={4} turn={turn} secretWord={secretWord} guess={guesses[4]} />
         <WordGuess rowID={5} turn={turn} secretWord={secretWord} guess={guesses[5]} />
         <Keyboard
+          guessedLetters={guessedLetters}
           handleKeyClick={(gameLost || guessedCorrectly) ? () => { } : handleKeyClick}
           handleBackspace={(gameLost || guessedCorrectly) ? () => { } : handleBackspace}
           handleSubmit={(gameLost || guessedCorrectly) ? () => { } : handleSubmit}
@@ -118,7 +133,7 @@ export default function Game({ data }) {
             setTurn(0)
             setGuesses(Array(attempts).fill(""))
             setGuessedCorrectly(false)
-            setGameLost(false)      
+            setGameLost(false)
             setAloneGuessed(true)
             return
           }}>
