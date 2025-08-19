@@ -3,7 +3,7 @@ import dayjs from "dayjs";
 import classes from './birthday.module.css'
 
 export default function Home() {
-  const today = dayjs().year(2025).month(7).date(21)
+  const today = dayjs()
   const birthdayToday = today.year(2025).month(7).date(21).format("YYYY-MM-DD") === today.format("YYYY-MM-DD")
   return (
     <div>
@@ -33,7 +33,7 @@ function StandardHome() {
   )
 }
 
-function BirthdayHome({ today }) {
+function BirthdayHome() {
   const emojiClassNames = `${classes.game} ${classes.notImplemented}`
   return (
     <div >

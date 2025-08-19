@@ -79,15 +79,11 @@ export default function Game({ data }) {
 
     if (currentGuess === secretWord) {
       setGuessedCorrectly(true)
-      setMessage('You guessed correct!')
-      setMessageClassName('winGameMessage')
     }
 
 
     if (!guessedCorrectly && (turn >= 5) && currentGuess !== secretWord) {
       setGameLost(true)
-      setMessage("Unlucky! Try again tomorrow (or now :) )")
-      setMessageClassName('loseGameMessage')
     }
 
     if (turn <= (attempts - 1)) {
@@ -109,7 +105,10 @@ export default function Game({ data }) {
         messageAvailable &&
         <Message className={messageClassName} text={message} />
       }
-      <GameOverMessage aloneGuessed={aloneGuessed} today={today} display={guessedCorrectly || gameLost} won={guessedCorrectly} attempt={turn} />
+      {
+        (guessedCorrectly || gameLost) &&
+        <GameOverMessage aloneGuessed={aloneGuessed} today={today} won={guessedCorrectly} attempt={turn} />
+      }
       <div className='gameCTA'>
         Try to guess today's word!
       </div>
