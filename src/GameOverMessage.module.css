@@ -20,7 +20,23 @@
 
   &.hidden {
     display: none;
-  } 
+  }
+
+  &.won {
+    border: 2px solid var(--correct-letter-color);
+
+    &.hidden {
+      display: none;
+    }
+  }
+
+  &.lost {
+    border: 2px solid var(--lose-game-color);
+
+    &.hidden {
+      display: none;
+    }
+  }
 }
 
 .closeButton {
@@ -36,7 +52,11 @@
 
   &.hidden {
     display: none;
-  }  
+  }
 }
+
+.won {}
+
+.lost {}
 
 .hidden {}

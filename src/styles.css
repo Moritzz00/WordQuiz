@@ -4,6 +4,7 @@
   --correct-letter-color: #6aaa64;
   --present-letter-color: #c9b458;
   --absent-letter-color: #787c7e;
+  --lose-game-color: #b80606;
 }
 
 body {
@@ -35,14 +36,22 @@ body {
 }
 
 .gameCTA {
-  height: 200px;
-  display: flex;
-  align-items: center;
+  height: 150px;
   justify-content: center;
   text-align: center;
 
   font-size: 25px;
 }
+
+.teaser {
+  font-size: 20px;
+}
+
+.solution {
+  font-size: 20px;
+}
+
+
 /* ----- Keyboard Component ----- */
 .keyboard {
   display: flex;
@@ -185,8 +194,15 @@ body {
   align-items: center;
 }
 
-/* ----- Reset Button ----- */
+/* ----- Buttons ----- */
+.buttonRow {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: row;
+  gap: 0px 30px
+}
 
-.resetButton {
-  margin-top: 10px;
+.resetButton {}
+
+.revealButton {
 }

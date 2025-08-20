@@ -16,6 +16,7 @@ export default function Game({ data }) {
   const [guessedCorrectly, setGuessedCorrectly] = useState(false)
   const [gameLost, setGameLost] = useState(false)
   const [aloneGuessed, setAloneGuessed] = useState(false)
+  const [clickedTimes, setClickedTimes] = useState(0)  
   const today = dayjs()
 
 
@@ -110,7 +111,18 @@ export default function Game({ data }) {
         <GameOverMessage aloneGuessed={aloneGuessed} today={today} won={guessedCorrectly} attempt={turn} />
       }
       <div className='gameCTA'>
-        Try to guess today's word!
+        <p>Try to guess today's word!</p>
+        {
+          clickedTimes === 1 &&
+          <p className='teaser'>Todays solution: </p>
+        }
+        {
+          clickedTimes > 1 &&
+          <div>
+            <p className='teaser'>Todays solution:</p>
+            {secretWord}
+          </div>
+        }
       </div>
       <div className='gameContainer'>
         <WordGuess rowID={0} turn={turn} secretWord={secretWord} guess={guesses[0]} />
@@ -126,19 +138,37 @@ export default function Game({ data }) {
           handleSubmit={(gameLost || guessedCorrectly) ? () => { } : handleSubmit}
         />
 
-        {
-          (guessedCorrectly || gameLost) &&
-          <button className='resetButton' onClick={function () {
-            setTurn(0)
-            setGuesses(Array(attempts).fill(""))
-            setGuessedCorrectly(false)
-            setGameLost(false)
-            setAloneGuessed(true)
-            return
-          }}>
-            Restart Game
-          </button>
-        }
+        <div className='buttonRow'>
+          {
+            (guessedCorrectly || gameLost) &&
+            <button className='resetButton' onClick={function () {
+              setTurn(0)
+              setGuesses(Array(attempts).fill(""))
+              setGuessedCorrectly(false)
+              setGameLost(false)
+              setAloneGuessed(true)
+              setClickedTimes(0)
+              return
+            }}>
+              Restart Game
+            </button>
+          }
+          {
+            (gameLost) &&
+            <button className='revealButton' onClick={
+              clickedTimes === 0 ?
+                () => {
+                  setClickedTimes(clickedTimes + 1)
+                  setMessage('Are you sure??')
+                  setMessageClassName('wordNotFoundMessage')
+                } :
+                () => {
+                  setClickedTimes(clickedTimes + 1)
+                }}>
+              {clickedTimes === 0 ? 'Reveal Solution' : 'Really reveal solution'}
+            </button>
+          }
+        </div>
       </div>
 
 

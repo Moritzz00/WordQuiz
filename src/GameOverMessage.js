@@ -4,7 +4,7 @@ import classes from './GameOverMessage.module.css'
 export default function GameOverMessage({ won, attempt, today, aloneGuessed }) {
   const [showMessage, setShowMessage] = useState(true)
   const buttonClassName = `${classes.closeButton} ${showMessage ? '' : classes.hidden}`
-  const messageClassName = `${classes.textMessage} ${showMessage ? '' : classes.hidden}`
+  let messageClassName = `${classes.textMessage} ${showMessage ? '' : classes.hidden}`
 
   
   let specialBirthdayMessage = ''
@@ -44,7 +44,7 @@ export default function GameOverMessage({ won, attempt, today, aloneGuessed }) {
     <div>
       {
         won &&
-        <div className={messageClassName}>
+        <div className={messageClassName += ` ${classes.won}`}>
           <CloseButton className={buttonClassName} onClick={handleCloseButtonClick} />
           <p>{message}</p>
           <p>{specialBirthdayMessage}</p>
@@ -52,7 +52,7 @@ export default function GameOverMessage({ won, attempt, today, aloneGuessed }) {
       }
       {
         !won &&
-        <div className={messageClassName}>
+        <div className={messageClassName += ` ${classes.lost}`}>
           <CloseButton className={buttonClassName} onClick={handleCloseButtonClick} />
           Oh no, you didn't make it 😭 You can try again or reveal the secret word.
         </div>
