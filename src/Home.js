@@ -22,16 +22,45 @@ export default function Home() {
 }
 
 function StandardHome() {
+  const emojiClassNames = `${classes.game} ${classes.notImplemented}`
   return (
     <div>
-      <h1>
+      <h1 className={classes.birthdayHomeContainer}>
         This is the standard home Site
       </h1>
-      <nav>
-        <NavLink to="/Game">
-          To Game
-        </NavLink>
-      </nav>
+      <div>
+        <nav className={`${classes.game}`}>
+          <NavLink to="/Game">
+            🎁
+          </NavLink>
+        </nav>
+
+        <div className={classes.textSeparator} />
+
+        <div className={classes.gameText}>
+          Vielleicht tauchen hier noch mehr Sachen auf, wenn ich in Kanada bin ...
+        </div>
+
+        <nav className={emojiClassNames}>
+          💡
+        </nav>
+
+        <nav className={emojiClassNames}>
+          🔍
+        </nav>
+
+        <nav className={emojiClassNames}>
+          🧮
+        </nav>
+
+        <nav className={emojiClassNames}>
+          🎲
+        </nav>
+
+        <nav className={emojiClassNames}>
+          🧩
+        </nav>
+      </div>
     </div>
   )
 }
