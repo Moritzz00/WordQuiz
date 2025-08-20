@@ -6,7 +6,7 @@ export default function GameOverMessage({ won, attempt, today, aloneGuessed }) {
   const buttonClassName = `${classes.closeButton} ${showMessage ? '' : classes.hidden}`
   let messageClassName = `${classes.textMessage} ${showMessage ? '' : classes.hidden}`
 
-  
+    
   let specialBirthdayMessage = ''
   if (today.year(2025).month(7).date(21).format("YYYY-MM-DD") === today.format("YYYY-MM-DD") && !aloneGuessed) {
     specialBirthdayMessage = "Well that was easy :P Only today you can restart the game and a new word will be chosen as the secretword. Other than that the word changes once per day!"
@@ -61,7 +61,7 @@ export default function GameOverMessage({ won, attempt, today, aloneGuessed }) {
   )
 }
 
-function CloseButton({ onClick, className }) {
+export function CloseButton({ onClick, className }) {
   return (
     <button className={className} onClick={onClick}>
       X
