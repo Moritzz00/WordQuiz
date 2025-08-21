@@ -89,7 +89,9 @@ function BirthdayHome() {
           Im Moment ist es leider noch nicht so viel, aber ich hoffe du hast lange und viel Spaß hiermit 😊
         </div>
 
-        <BouncingBook />
+        <div>
+          <BouncingBook />
+        </div>
 
         <div className={classes.textSeparator} />
 
@@ -125,7 +127,7 @@ function BouncingBook() {
   const [textOpen, setTextOpen] = useState(false)
   const [clicked, setClicked] = useState(false)
 
-  let messageClassName = `${messageClasses.textMessage} ${textOpen ? '' : messageClasses.hidden}`
+  const messageClassName = `${messageClasses.textMessage} ${textOpen ? '' : messageClasses.hidden}`
   const buttonClassName = `${messageClasses.closeButton} ${textOpen ? '' : messageClasses.hidden}`
   const bookIconClassName = `${classes.bouncingBook} ${clicked ? classes.clicked : ''}`
 
@@ -139,7 +141,7 @@ function BouncingBook() {
   return (
     <>
       <div className={bookIconClassName} onClick={handleClick}>
-        🕮
+        📔
       </div>
       {
         textOpen &&
