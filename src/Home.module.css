@@ -30,6 +30,10 @@
   }
 }
 
+nav a {
+  text-decoration: none;
+}
+
 @keyframes shake {
   33.333333% { transform: scale(1.1); }
   43.333333% { transform: scale(1.1); }
